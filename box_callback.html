@@ -5,21 +5,18 @@
 <title>Box OAuth Callback</title>
 </head>
 <body>
-<p>認証完了 - FileMakerに戻っています...</p>
+認証完了
+
 <script>
 const code = new URLSearchParams(location.search).get("code");
 
-if (code) {
-  if (window.FileMaker) {
-    FileMaker.PerformScript("BoxOAuthCallback", code);
-  } else {
-    window.location.href =
-      "fmp://trainingfmc.account.filemaker-cloud.com/BoxAPI.fmp12?script=BoxOAuthCallback&param="
-      + encodeURIComponent(code);
-  }
-} else {
-  document.body.innerHTML = "<p>エラー: codeが取得できませんでした</p>";
+if (code && window.FileMaker) {
+    FileMaker.PerformScript(
+        "BoxOAuthCallback",
+        code
+    );
 }
 </script>
+
 </body>
 </html>
