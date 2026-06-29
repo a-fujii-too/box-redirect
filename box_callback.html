@@ -12,39 +12,10 @@
 <div id="result"></div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const code = params.get("code");
+const code = new URLSearchParams(location.search).get("code");
 
-let html = "";
-
-html += "<p><b>URL:</b><br>" + window.location.href + "</p>";
-html += "<p><b>認証コード:</b><br>" + (code || "取得できません") + "</p>";
-html += "<p><b>window.FileMaker:</b><br>" + (window.FileMaker ? "存在します" : "存在しません") + "</p>";
-
-document.getElementById("result").innerHTML = html;
-
-if (code && window.FileMaker) {
-    try {
-        FileMaker.PerformScript(
-            "BoxOAuthCallback",
-            code
-        );
-        html += "<p><b>PerformScript:</b> 実行しました</p>";
-    } catch (e) {
-        html += "<p><b>PerformScript エラー:</b><br>" + e.message + "</p>";
-    }
-
-    document.getElementById("result").innerHTML = html;
-} else {
-    if (!code) {
-        html += "<p><b>エラー:</b> 認証コード(code)がありません。</p>";
-    }
-
-    if (!window.FileMaker) {
-        html += "<p><b>エラー:</b> FileMakerオブジェクトがありません。Webビューアではなく通常のブラウザで開かれている可能性があります。</p>";
-    }
-
-    document.getElementById("result").innerHTML = html;
+if (code) {
+    location.href = "fmp://$/BoxOAuthCallback?code=" + encodeURIComponent(code);
 }
 </script>
 
