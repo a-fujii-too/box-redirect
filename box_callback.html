@@ -1,23 +1,28 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Box OAuth Callback</title>
 </head>
-
 <body>
-
-<h2>認証完了</h2>
-
-<div id="result"></div>
-
+<p>認証完了 - FileMakerに戻っています...</p>
 <script>
 const code = new URLSearchParams(location.search).get("code");
 
 if (code) {
-    location.href = "fmp://$/BoxOAuthCallback?code=" + encodeURIComponent(code);
+  if (window.FileMaker) {
+    // Webビューア内で開かれた場合
+    FileMaker.PerformScript("BoxOAuthCallback", code);
+  } else {
+    // 外部ブラウザで開かれた場合 → fmp://でFileMakerを呼ぶ
+    // ★ DB名を実際のファイル名に変えてください
+    window.location.href = 
+      "fmp://localhost/DB名?script=BoxOAuthCallback&param=" 
+      + encodeURIComponent(code);
+  }
+} else {
+  document.body.innerHTML = "<p>エラー: codeが取得できませんでした</p>";
 }
 </script>
-
 </body>
 </html>
