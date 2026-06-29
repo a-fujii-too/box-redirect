@@ -17,7 +17,7 @@ if (code) {
     // 外部ブラウザで開かれた場合 → fmp://でFileMakerを呼ぶ
     // ★ DB名を実際のファイル名に変えてください
     window.location.href = 
-      "fmp://localhost/DB名?script=BoxOAuthCallback&param=" 
+      "fmp://trainingfmc.account.filemaker-cloud.com/BoxAPI.fmp12?script=BoxOAuthCallback&param=" 
       + encodeURIComponent(code);
   }
 } else {
