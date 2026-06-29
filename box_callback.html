@@ -11,13 +11,10 @@ const code = new URLSearchParams(location.search).get("code");
 
 if (code) {
   if (window.FileMaker) {
-    // Webビューア内で開かれた場合
     FileMaker.PerformScript("BoxOAuthCallback", code);
   } else {
-    // 外部ブラウザで開かれた場合 → fmp://でFileMakerを呼ぶ
-    // ★ DB名を実際のファイル名に変えてください
-    window.location.href = 
-      "fmp://trainingfmc.account.filemaker-cloud.com/BoxAPI.fmp12?script=BoxOAuthCallback&param=" 
+    window.location.href =
+      "fmp://trainingfmc.account.filemaker-cloud.com/BoxAPI.fmp12?script=BoxOAuthCallback&param="
       + encodeURIComponent(code);
   }
 } else {
