@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Box OAuth Callback</title>
+</head>
+<body>
+認証完了
+
+<script>
+const code = new URLSearchParams(location.search).get("code");
+
+if (code && window.FileMaker) {
+    FileMaker.PerformScript(
+        "BoxOAuthCallback",
+        code
+    );
+}
+</script>
+
+</body>
+</html>
